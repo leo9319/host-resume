@@ -48,7 +48,11 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd host-resume
-            git pull
+            git checkout main
+            git pull origin main
+            git merge --ff-only ${{ github.event.ref }}
+            git push origin main
+
 
       - name: Remove Github Actions IP from security group
         run: |
